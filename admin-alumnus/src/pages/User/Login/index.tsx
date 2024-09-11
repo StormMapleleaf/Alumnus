@@ -166,19 +166,19 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
+          logo={<img alt="logo" src="/jhun.png" />}
+          title="江汉大学校友会后台管理系统"
           subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
           initialValues={{
             autoLogin: true,
           }}
           actions={[
-            <FormattedMessage
-              key="loginWith"
-              id="pages.login.loginWith"
-              defaultMessage="其他登录方式"
-            />,
-            <ActionIcons key="icons" />,
+            // <FormattedMessage
+            //   key="loginWith"
+            //   id="pages.login.loginWith"
+            //   defaultMessage="其他登录方式"
+            // />,
+            // <ActionIcons key="icons" />,
           ]}
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
@@ -196,13 +196,13 @@ const Login: React.FC = () => {
                   defaultMessage: '账户密码登录',
                 }),
               },
-              {
-                key: 'mobile',
-                label: intl.formatMessage({
-                  id: 'pages.login.phoneLogin.tab',
-                  defaultMessage: '手机号登录',
-                }),
-              },
+              // {
+              //   key: 'mobile',
+              //   label: intl.formatMessage({
+              //     id: 'pages.login.phoneLogin.tab',
+              //     defaultMessage: '手机号登录',
+              //   }),
+              // },
             ]}
           />
 
@@ -266,7 +266,7 @@ const Login: React.FC = () => {
           {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
           {type === 'mobile' && (
             <>
-              <ProFormText
+              {/* <ProFormText
                 fieldProps={{
                   size: 'large',
                   prefix: <MobileOutlined />,
@@ -296,8 +296,8 @@ const Login: React.FC = () => {
                     ),
                   },
                 ]}
-              />
-              <ProFormCaptcha
+              /> */}
+              {/* <ProFormCaptcha
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined />,
@@ -342,7 +342,7 @@ const Login: React.FC = () => {
                   }
                   message.success('获取验证码成功！验证码为：1234');
                 }}
-              />
+              /> */}
             </>
           )}
           <div
@@ -350,15 +350,15 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
+            {/* <ProFormCheckbox noStyle name="autoLogin">
               <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
-            </ProFormCheckbox>
+            </ProFormCheckbox> */}
             <a
               style={{
                 float: 'right',
               }}
             >
-              <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
+              {/* <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" /> */}
             </a>
           </div>
         </LoginForm>
