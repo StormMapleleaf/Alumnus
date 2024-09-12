@@ -1,23 +1,28 @@
+// src/pages/Login.tsx
+
 import React, { useState } from 'react';
 import { Form, Input, Button, Alert, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../api/api'; 
-import 'antd/dist/reset.css'; // 导入 Ant Design 样式
+import 'antd/dist/reset.css'; 
+import RegisterForm from '../../../components/RegisterForm';
 
-const { Title, Link } = Typography;
+const { Title } = Typography;
 
 const Login: React.FC = () => {
     const [message, setMessage] = useState<string>('');
+    const [isRegisterVisible, setIsRegisterVisible] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async (values: { email: string; password: string }) => {
+    const handleSubmit = async (values: { phone_number: string; password: string }) => {
         try {
-            const response = await api.post('/user/login', {
-                email: values.email,
+            const response = await api.post('/login', {
+                phone_number: values.phone_number,
                 password: values.password,
             });
             const token = response.data.token;
             localStorage.setItem('token', token);
+            console.log(token);
             
             setMessage('登录成功');
             navigate('/home'); // 跳转到主页或其他你想跳转的页面
@@ -37,10 +42,10 @@ const Login: React.FC = () => {
                 style={{ padding: '20px', background: '#fff', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
             >
                 <Form.Item
-                    name="email"
-                    rules={[{ required: true, message: '请输入您的邮箱!' }]}
+                    name="phone_number"
+                    rules={[{ required: true, message: '请输入您的手机号!' }]}
                 >
-                    <Input placeholder="邮箱" />
+                    <Input placeholder="手机号" />
                 </Form.Item>
 
                 <Form.Item
@@ -63,11 +68,18 @@ const Login: React.FC = () => {
                 )}
 
                 <Form.Item>
-                    <Link href="http://localhost:8080/oauth/authorize?client_id=9cb0c3b1-b5f3-475a-8a0b-17934bee2d99&redirect_uri=http://localhost:3000/home&response_type=code&scope=*">
-                        第三方登录
-                    </Link>
+                    <Button type="default" onClick={() => setIsRegisterVisible(true)} block>
+                        注册
+                    </Button>
                 </Form.Item>
+
             </Form>
+
+            {/* 注册表单的模态窗口 */}
+            <RegisterForm
+                visible={isRegisterVisible}
+                onCancel={() => setIsRegisterVisible(false)}
+            />
         </div>
     );
 };

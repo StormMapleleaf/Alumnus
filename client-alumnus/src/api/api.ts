@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000/api'; // Lumen 后端地址
+const API_URL = 'http://localhost:8000/api'; //后端地址
 
 const api = axios.create({
   baseURL: API_URL,
