@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\UserLogin;
 
 class LoginController extends Controller
 {
@@ -25,12 +26,12 @@ class LoginController extends Controller
         ]);
 
         // 使用手机号查找用户
-        $user = User::where('phone_number', $request->phone_number)->first();
+        $user = UserLogin::where('phone_number', $request->phone_number)->first();
 
         // 检查用户是否存在，并验证密码
         if ($user && Hash::check($request->password, $user->password)) {
             // 登录用户并生成 token 或会话
-            Auth::login($user);
+            // Auth::login($user);
 
             // 返回成功响应
             return response()->json([
