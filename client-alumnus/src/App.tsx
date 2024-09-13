@@ -5,6 +5,7 @@ import Login from './pages/User/Login/Login';
 import Home from './pages/Home/Home'
 import PrivateRoute from './components/PrivateRoute'; 
 import { AuthProvider } from './components/AuthContext';
+import UserInfo from './pages/User/UserInfo/UserInfo';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home/>} />
+        <Route path="/user" element={<UserInfo />} />
       </Routes>
     </Router>
   );

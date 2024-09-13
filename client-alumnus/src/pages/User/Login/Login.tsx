@@ -20,12 +20,11 @@ const Login: React.FC = () => {
                 phone_number: values.phone_number,
                 password: values.password,
             });
-            const token = response.data.token;
-            localStorage.setItem('token', token);
-            console.log(token);
+            const user_id = response.data.user_id;
+            localStorage.setItem('token',user_id );
             
             setMessage('登录成功');
-            navigate('/home'); // 跳转到主页或其他你想跳转的页面
+            navigate('/user'); // 跳转到主页或其他你想跳转的页面
 
         } catch (error) {
             setMessage('登录失败');

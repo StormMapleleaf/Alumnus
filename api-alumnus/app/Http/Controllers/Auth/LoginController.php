@@ -36,8 +36,7 @@ class LoginController extends Controller
             // 返回成功响应
             return response()->json([
                 'message' => 'Login successful',
-                'user' => $user,
-                'token' => 'token',
+                'user_id' => $user->user_id,
             ]);
         }
 
