@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Typography, Modal, notification } from 'antd';
 import { UserOutlined, CalendarOutlined } from '@ant-design/icons';
 import UserInfoForm from '../../../components/UserInfoForm';
+import UserVerify from '../../../components/UserVerify';
 import api from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,9 +12,9 @@ const UserInfo: React.FC = () => {
   const [userInfo, setUserInfo] = useState({
     name: '',
     gender: '',
-    date_of_birth: '',
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isVerifyModalVisible, setIsVerifyModalVisible] = useState(false); // 控制 UserVerify 模态框的可见性
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,12 +50,22 @@ const UserInfo: React.FC = () => {
     fetchUserInfo();
   }, [navigate]);
 
+  // 编辑个人信息的逻辑
   const handleEditClick = () => {
     setIsModalVisible(true);
   };
 
+  // 打开用户认证模态框的逻辑
+  const handleVerifyClick = () => {
+    setIsVerifyModalVisible(true);
+  };
+
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const handleVerifyCancel = () => {
+    setIsVerifyModalVisible(false);
   };
 
   const handleFormSubmit = async () => {
@@ -67,13 +78,27 @@ const UserInfo: React.FC = () => {
     }
   };
 
+  const handleVerifySubmit = () => {
+    // 刷新用户信息或者其他逻辑
+    setIsVerifyModalVisible(false);
+  };
+
   const genderText = userInfo.gender === '1' ? '男' : userInfo.gender === '0' ? '女' : '';
 
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
       <Card
         title={<Title level={3}>用户信息</Title>}
-        extra={<Button type="primary" onClick={handleEditClick}>编辑</Button>}
+        extra={
+          <>
+            <Button type="primary" onClick={handleEditClick} style={{ marginRight: '10px' }}>
+              编辑
+            </Button>
+            <Button type="default" onClick={handleVerifyClick}>
+              身份认证
+            </Button>
+          </>
+        }
         style={{ width: '100%' }}
       >
         <Paragraph>
@@ -97,6 +122,28 @@ const UserInfo: React.FC = () => {
           initialValues={userInfo}
           onSubmit={handleFormSubmit}
           onCancel={handleCancel}
+        />
+      </Modal>
+
+      {/* 用户认证的模态窗口 */}
+      <Modal
+        title="用户认证"
+        visible={isVerifyModalVisible}
+        footer={null}
+        onCancel={handleVerifyCancel}
+      >
+        <UserVerify
+          initialValues={{
+            enrollment_status: '', // 例如：本科生、研究生、博士生等
+            school: '',
+            faculty: '',
+            student_id: '',
+            major: '',
+            class: '',
+          }}
+          isVisible={isModalVisible}
+          onSubmit={handleVerifySubmit}
+          onCancel={handleVerifyCancel}
         />
       </Modal>
     </div>

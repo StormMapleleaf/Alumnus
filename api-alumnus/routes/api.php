@@ -12,3 +12,4 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->midd
 Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@register');
 Route::post('/user/update', 'App\Http\Controllers\Auth\UserInfoController@update');
 Route::post('/user/get', 'App\Http\Controllers\Auth\UserInfoController@getUserInfo');
+Route::post('/user/verify', 'App\Http\Controllers\Auth\UserVerifyController@store');
