@@ -67,14 +67,50 @@ class UserVerifyController extends Controller
     }
 
     // 获取认证状态（如果需要）
-    public function show()
+    public function getVerifyList(Request $request)
     {
-        $verify = UserVerify::where('user_id', Auth::id())->first();
+        // 使用 Eloquent 关联查询 user_verify 表和 user_info 表的数据
+        $verifications = UserVerify::with('userInfo')->get();
+
+        // 格式化返回数据
+        $data = $verifications->map(function ($verification) {
+            return [
+                'user_id' => $verification->user_id,
+                'name' => $verification->userInfo->name,  // 从 user_info 表中获取用户姓名
+                'gender' => $verification->userInfo->gender,  // 从 user_info 表中获取性别
+                'education_level' => $verification->enrollment_status,  // 学历
+                'school' => $verification->school,  // 学校
+                'faculty' => $verification->faculty,  // 学院
+                'student_id' => $verification->student_id,  // 学号
+                'major' => $verification->major,  // 专业
+                'class' => $verification->class,  // 班级
+                'apply_time' => $verification->created_at,  // 申请时间
+                'identity_image_path' => $verification->identity_image_path,  // 证明图片路径
+                'status' => $verification->status,  // 审核状态
+            ];
+        });
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ]);
+    }
+    public function updateVerifyStatus(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|string|max:50',
+            'status' => 'required|integer',
+        ]);
+
+        $verify = UserVerify::where('user_id', $request->input('user_id'))->first();
 
         if (!$verify) {
-            return response()->json(['error' => 'No verification found'], 404);
+            return response()->json(['error' => 'Verification not found'], 404);
         }
 
-        return response()->json($verify, 200);
+        $verify->status = $request->input('status');
+        $verify->save();
+
+        return response()->json(['message' => 'Verification status updated successfully'], 200);
     }
 }

@@ -13,3 +13,5 @@ Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@register'
 Route::post('/user/update', 'App\Http\Controllers\Auth\UserInfoController@update');
 Route::post('/user/get', 'App\Http\Controllers\Auth\UserInfoController@getUserInfo');
 Route::post('/user/verify', 'App\Http\Controllers\Auth\UserVerifyController@store');
+Route::post('/user/verify/list', 'App\Http\Controllers\Auth\UserVerifyController@getVerifyList');
+Route::post('/user/verify/update', 'App\Http\Controllers\Auth\UserVerifyController@updateVerifyStatus');

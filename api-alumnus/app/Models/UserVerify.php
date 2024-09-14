@@ -22,5 +22,10 @@ class UserVerify extends Model
         'identity_image_path',
     ];
 
+    public function userInfo()
+    {
+        return $this->belongsTo(UserInfo::class, 'user_id', 'user_id');
+    }
+
     public $timestamps = true; // 自动维护 `created_at` 和 `updated_at`
 }
