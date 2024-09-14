@@ -34,9 +34,9 @@ const Verify: React.FC = () => {
   };
 
   // 处理状态变更
-  const handleStatusChange = async (user_id: string, status: number) => {
+  const handleStatusChange = async (id:number, user_id: string, status: number) => {
     try {
-      await updateVerificationStatus(user_id, status);
+      await updateVerificationStatus(id,user_id, status);
       notification.success({ message: '状态更新成功' });
       // 重新请求数据
       await fetchData(); // 确保数据刷新
@@ -47,6 +47,11 @@ const Verify: React.FC = () => {
 
   // 表格列定义
   const columns = [
+    {
+      title:'ID',
+      dataIndex:'id',
+      key:'id',
+    },
     {
       title: '用户ID',
       dataIndex: 'user_id',
@@ -62,7 +67,7 @@ const Verify: React.FC = () => {
       title: '性别',
       dataIndex: 'gender',
       key: 'gender',
-      render: (text: number) => (text === 1 ? '男' : '女'),
+      render: (dataIndex: number) => (dataIndex == 1 ? '男' : '女'),
     },
     {
       title: '学历',
@@ -116,7 +121,7 @@ const Verify: React.FC = () => {
       render: (text: number, record: any) => (
         <Select
           value={text}
-          onChange={(value) => handleStatusChange(record.user_id, value)}
+          onChange={(value) => handleStatusChange(record.id, record.user_id, value)}
         >
           <Option value={0}>{statusMap[0]}</Option>
           <Option value={1}>{statusMap[1]}</Option>

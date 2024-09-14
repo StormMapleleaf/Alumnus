@@ -3,6 +3,7 @@ import { Card, Button, Typography, Modal, notification } from 'antd';
 import { UserOutlined, CalendarOutlined } from '@ant-design/icons';
 import UserInfoForm from '../../../components/UserInfoForm';
 import UserVerify from '../../../components/UserVerify';
+import UserSearch from '../../../components/UserSearch';
 import api from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -110,6 +111,13 @@ const UserInfo: React.FC = () => {
           <strong>性别:</strong> {genderText}
         </Paragraph>
       </Card>
+
+      {/* 用户搜索功能 */}
+      <div style={{ width: '700px' ,marginTop: '20px' }}>
+        <Card title="用户搜索">
+          <UserSearch /> {/* 嵌入 UserSearch 组件 */}
+        </Card>
+      </div>
 
       {/* 编辑表单的模态窗口 */}
       <Modal

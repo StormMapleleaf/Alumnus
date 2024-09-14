@@ -75,6 +75,7 @@ class UserVerifyController extends Controller
         // 格式化返回数据
         $data = $verifications->map(function ($verification) {
             return [
+                'id' => $verification->id,
                 'user_id' => $verification->user_id,
                 'name' => $verification->userInfo->name,  // 从 user_info 表中获取用户姓名
                 'gender' => $verification->userInfo->gender,  // 从 user_info 表中获取性别
@@ -98,11 +99,12 @@ class UserVerifyController extends Controller
     public function updateVerifyStatus(Request $request)
     {
         $request->validate([
+            'id' => 'required|integer',
             'user_id' => 'required|string|max:50',
             'status' => 'required|integer',
         ]);
 
-        $verify = UserVerify::where('user_id', $request->input('user_id'))->first();
+        $verify = UserVerify::where('id', $request->input('id'))->first();
 
         if (!$verify) {
             return response()->json(['error' => 'Verification not found'], 404);

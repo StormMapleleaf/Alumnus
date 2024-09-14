@@ -27,6 +27,11 @@ class UserInfo extends Model
         'updated_at',
     ];
 
+    public function verify()
+    {
+        return $this->hasOne(UserVerify::class, 'user_id', 'user_id');
+    }
+
     // 不可填充字段（如果有的话）
     // protected $guarded = [];
 }

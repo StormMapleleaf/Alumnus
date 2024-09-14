@@ -15,3 +15,4 @@ Route::post('/user/get', 'App\Http\Controllers\Auth\UserInfoController@getUserIn
 Route::post('/user/verify', 'App\Http\Controllers\Auth\UserVerifyController@store');
 Route::post('/user/verify/list', 'App\Http\Controllers\Auth\UserVerifyController@getVerifyList');
 Route::post('/user/verify/update', 'App\Http\Controllers\Auth\UserVerifyController@updateVerifyStatus');
+Route::post('/user/search', 'App\Http\Controllers\Auth\UserSearchController@search');
