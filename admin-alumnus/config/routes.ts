@@ -23,12 +23,12 @@ export default [
     ],
   },
   
-  {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
+  // {
+  //   path: '/welcome',
+  //   name: 'welcome',
+  //   icon: 'smile',
+  //   component: './Welcome',
+  // },
   {
     path: 'verify',
     name: 'verify',
@@ -54,7 +54,7 @@ export default [
   // },
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/Verify',
   },
   {
     path: '*',

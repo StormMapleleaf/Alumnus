@@ -68,7 +68,7 @@ describe('Login Page', () => {
 
     await rootContainer.findAllByText('Ant Design');
 
-    const userNameInput = await rootContainer.findByPlaceholderText('Username: admin or user');
+    const userNameInput = await rootContainer.findByPlaceholderText('Username: admin s user');
 
     act(() => {
       fireEvent.change(userNameInput, { target: { value: 'admin' } });
